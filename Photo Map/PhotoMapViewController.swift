@@ -69,7 +69,6 @@ extension PhotoMapViewController: UINavigationControllerDelegate {
 
 extension PhotoMapViewController: LocationsViewControllerDelegate {
     func locationsPickedLocation(controller: LocationsViewController, latitude: NSNumber, longitude: NSNumber) {
-        self.navigationController!.popToViewController(controller,
-            animated: true)
+        self.navigationController!.popViewControllerAnimated(true)
     }
 }
