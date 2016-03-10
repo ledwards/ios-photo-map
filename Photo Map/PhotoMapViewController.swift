@@ -18,6 +18,15 @@ class PhotoMapViewController: UIViewController {
         let sfRegion = MKCoordinateRegionMake(CLLocationCoordinate2DMake(37.783333, -122.416667),
             MKCoordinateSpanMake(0.1, 0.1))
         mapView.setRegion(sfRegion, animated: false)
+        
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        vc.sourceType = UIImagePickerController.isSourceTypeAvailable(.Camera) ? .Camera : .PhotoLibrary
+        
+        self.presentViewController(vc, animated: true, completion: nil)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,5 +44,21 @@ class PhotoMapViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
+}
+
+extension PhotoMapViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+            let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+            
+            dismissViewControllerAnimated(true, completion: {
+                self.performSegueWithIdentifier("tagSegue", sender: self)
+            })
+    }
+}
+
+extension PhotoMapViewController: UINavigationControllerDelegate {
 
 }
