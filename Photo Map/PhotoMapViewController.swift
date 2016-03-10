@@ -34,6 +34,10 @@ class PhotoMapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let vc = segue.destinationViewController as! LocationsViewController
+        vc.delegate = self
+    }
 
     /*
     // MARK: - Navigation
@@ -61,4 +65,11 @@ extension PhotoMapViewController: UIImagePickerControllerDelegate {
 
 extension PhotoMapViewController: UINavigationControllerDelegate {
 
+}
+
+extension PhotoMapViewController: LocationsViewControllerDelegate {
+    func locationsPickedLocation(controller: LocationsViewController, latitude: NSNumber, longitude: NSNumber) {
+        self.navigationController!.popToViewController(controller,
+            animated: true)
+    }
 }
